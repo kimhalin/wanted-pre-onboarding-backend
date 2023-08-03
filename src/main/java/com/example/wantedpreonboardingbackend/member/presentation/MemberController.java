@@ -1,9 +1,11 @@
 package com.example.wantedpreonboardingbackend.member.presentation;
 
-import com.example.wantedpreonboardingbackend.global.exception.BadRequestException;
+import com.example.wantedpreonboardingbackend.global.exception.BusinessException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
 import com.example.wantedpreonboardingbackend.member.application.MemberService;
+import com.example.wantedpreonboardingbackend.member.dto.request.MemberLoginRequest;
 import com.example.wantedpreonboardingbackend.member.dto.request.MemberSignupRequest;
+import com.example.wantedpreonboardingbackend.member.dto.response.MemberLoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,10 +30,21 @@ public class MemberController {
     @Operation(summary = "회원가입")
     public ResponseEntity<Void> signup(@Valid @RequestBody MemberSignupRequest dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new BadRequestException(ErrorMessage.ERROR_INVALID_EMAIL_OR_PASSWORD);
+            throw new BusinessException(ErrorMessage.ERROR_INVALID_EMAIL_OR_PASSWORD, HttpStatus.BAD_REQUEST);
         }
 
         this.memberService.signup(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "로그인")
+    public ResponseEntity<MemberLoginResponse> signup(@Valid @RequestBody MemberLoginRequest dto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new BusinessException(ErrorMessage.ERROR_INVALID_EMAIL_OR_PASSWORD, HttpStatus.BAD_REQUEST);
+        }
+
+        MemberLoginResponse result = this.memberService.login(dto);
+        return ResponseEntity.ok(result);
     }
 }

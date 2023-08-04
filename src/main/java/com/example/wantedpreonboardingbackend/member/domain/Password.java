@@ -19,9 +19,9 @@ public class Password {
         this.value = value;
     }
 
-    public boolean isSamePassword(final String value) {
-        final String encodedValue = CryptoEncoder.encrypt(value);
-        return value.equals(encodedValue);
+    public boolean isSamePassword(final String rawPassword) {
+        final String encodedValue = CryptoEncoder.encrypt(rawPassword);
+        return this.value.equals(encodedValue);
     }
 
     public static Password of(String password) {

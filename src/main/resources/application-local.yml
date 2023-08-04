@@ -1,15 +1,25 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:13306/wanted?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:13306/wanted?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+security:
+  jwt:
+    token:
+      secret-key: 253431dbd8d8a16c64892b1e19a10328cfaec11f54242d008f9c11f7c1f55e41b05a20b1ff1e39db8f5a10a463d478947c184fa86e84f7f8da7c4ba619796922
+      access:
+        expire-length: 3600000 # 1시간
+      refresh:
+        expire-length: 1210000000 # 14일

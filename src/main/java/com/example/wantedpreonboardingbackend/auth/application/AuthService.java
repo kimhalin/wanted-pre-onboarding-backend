@@ -1,7 +1,7 @@
 package com.example.wantedpreonboardingbackend.auth.application;
 
 import com.example.wantedpreonboardingbackend.auth.domain.AuthToken;
-import com.example.wantedpreonboardingbackend.global.support.auth.AuthTokenCreator;
+import com.example.wantedpreonboardingbackend.auth.support.AuthTokenCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

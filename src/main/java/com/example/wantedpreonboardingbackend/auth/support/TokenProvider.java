@@ -1,4 +1,4 @@
-package com.example.wantedpreonboardingbackend.global.support.auth;
+package com.example.wantedpreonboardingbackend.auth.support;
 
 public interface TokenProvider {
 

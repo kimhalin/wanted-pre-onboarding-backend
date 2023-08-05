@@ -1,4 +1,4 @@
-package com.example.wantedpreonboardingbackend.auth.support;
+package com.example.wantedpreonboardingbackend.auth.support.token;
 
 import com.example.wantedpreonboardingbackend.auth.domain.AuthToken;
 import com.example.wantedpreonboardingbackend.auth.domain.RefreshToken;

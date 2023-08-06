@@ -15,7 +15,7 @@ public class AuthTokenCreator implements TokenCreator {
 
 
     public AuthToken createAuthToken(final Long memberId) {
-        String accessToken = tokenProvider.createAccessToken(String.valueOf(memberId));
+        String accessToken = tokenProvider.createAccessToken(memberId);
         RefreshToken refreshToken = this.createRefreshToken(memberId);
         return new AuthToken(accessToken, refreshToken.getId());
     }
@@ -27,7 +27,7 @@ public class AuthTokenCreator implements TokenCreator {
             return tokenRepository.getByMemberId(memberId);
         }
 
-        String token = tokenProvider.createRefreshToken(String.valueOf(memberId));
+        String token = tokenProvider.createRefreshToken(memberId);
         RefreshToken refreshToken = RefreshToken.builder().token(token).memberId(memberId).build();
         return tokenRepository.save(refreshToken);
 
@@ -37,7 +37,7 @@ public class AuthTokenCreator implements TokenCreator {
         RefreshToken refreshToken = this.tokenRepository.getById(refreshTokenId);
         tokenProvider.validateToken(refreshToken.getToken());
 
-        String accessTokenForRenew = tokenProvider.createAccessToken(String.valueOf(refreshToken.getMemberId()));
+        String accessTokenForRenew = tokenProvider.createAccessToken(refreshToken.getMemberId());
 
         return new AuthToken(accessTokenForRenew, refreshToken.getId());
     }

@@ -1,5 +1,6 @@
 package com.example.wantedpreonboardingbackend.auth.support.token;
 
+import com.example.wantedpreonboardingbackend.auth.domain.AuthInfo;
 import com.example.wantedpreonboardingbackend.global.exception.AuthFailedException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
 import io.jsonwebtoken.*;
@@ -28,21 +29,21 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String createAccessToken(final String payload) {
-        return createToken(payload, accessTokenValidityInMilliseconds);
+    public String createAccessToken(final Long memberId) {
+        return createToken(memberId, accessTokenValidityInMilliseconds);
     }
 
     @Override
-    public String createRefreshToken(final String payload) {
-        return createToken(payload, refreshTokenValidityInMilliseconds);
+    public String createRefreshToken(final Long memberId) {
+        return createToken(memberId, refreshTokenValidityInMilliseconds);
     }
 
-    private String createToken(final String payload, final Long validityInMilliseconds) {
+    private String createToken(final Long memberId, final Long validityInMilliseconds) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setSubject(payload)
+                .claim("id", memberId)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -57,6 +58,24 @@ public class JwtTokenProvider implements TokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    @Override
+    public AuthInfo getParsedClaims(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException ex) {
+            Long id = ex.getClaims().get("id", Long.class);
+            return new AuthInfo(id);
+        }
+
+        Long id = claims.get("id", Long.class);
+        return new AuthInfo(id);
     }
 
     @Override

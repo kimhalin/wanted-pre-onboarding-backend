@@ -7,9 +7,11 @@ public enum ErrorMessage {
     ERROR_INVALID_EMAIL_OR_PASSWORD("이메일 또는 비밀번호가 잘못된 입력입니다."),
     ERROR_WRONG_PASSWORD("비밀번호가 틀렸습니다."),
     ERROR_MEMBER_NOT_FOUND("회원을 찾을 수 없습니다."),
-    ERROR_TOKEN_NOT_FOUND("토큰을 찾을 수 없습니다"),
+    ERROR_TOKEN_NOT_FOUND("토큰을 찾을 수 없습니다."),
 
-    // Auth
+    // Board
+    ERROR_BOARD_NOT_FOUND("게시글을 찾을 수 없습니다."),
+
     ERROR_INVALID_TOKEN("유효하지 않은 토큰입니다."),
     ERROR_AUTH_FAILED("인증에 실패했습니다."),
     ;

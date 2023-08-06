@@ -44,4 +44,8 @@ public class MemberService {
             throw new BusinessException(ErrorMessage.ERROR_DUPLICATED_EMAIL, HttpStatus.CONFLICT);
         }
     }
+
+    public Member getById(Long memberId){
+        return this.memberRepository.getById(memberId);
+    }
 }

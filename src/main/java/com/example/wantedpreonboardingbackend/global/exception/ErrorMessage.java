@@ -11,6 +11,7 @@ public enum ErrorMessage {
 
     // Auth
     ERROR_INVALID_TOKEN("유효하지 않은 토큰입니다."),
+    ERROR_AUTH_FAILED("인증에 실패했습니다."),
     ;
 
     private final String value;

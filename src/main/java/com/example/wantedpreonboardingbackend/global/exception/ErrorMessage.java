@@ -18,7 +18,7 @@ public enum ErrorMessage {
     ERROR_AUTH_FAILED("인증에 실패했습니다."),
 
     // Common
-    ERROR_REQUIRED_VALUE_EMPTY("필수값을 입력하지 않았습니다"),
+    ERROR_INVALID_REQUEST("요청이 유효하지 않습니다."),
     ;
 
     private final String value;

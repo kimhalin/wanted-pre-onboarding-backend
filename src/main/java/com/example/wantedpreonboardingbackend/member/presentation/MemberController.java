@@ -2,6 +2,7 @@ package com.example.wantedpreonboardingbackend.member.presentation;
 
 import com.example.wantedpreonboardingbackend.global.exception.BusinessException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
+import com.example.wantedpreonboardingbackend.global.support.annotation.NoAuth;
 import com.example.wantedpreonboardingbackend.member.application.MemberService;
 import com.example.wantedpreonboardingbackend.member.dto.request.MemberLoginRequest;
 import com.example.wantedpreonboardingbackend.member.dto.request.MemberSignupRequest;
@@ -26,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @NoAuth
     @PostMapping("/signup")
     @Operation(summary = "회원가입")
     public ResponseEntity<Void> signup(@Valid @RequestBody MemberSignupRequest dto, BindingResult bindingResult) {
@@ -37,9 +39,10 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @NoAuth
     @PostMapping("/login")
     @Operation(summary = "로그인")
-    public ResponseEntity<MemberLoginResponse> signup(@Valid @RequestBody MemberLoginRequest dto, BindingResult bindingResult) {
+    public ResponseEntity<MemberLoginResponse> login(@Valid @RequestBody MemberLoginRequest dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new BusinessException(ErrorMessage.ERROR_INVALID_EMAIL_OR_PASSWORD, HttpStatus.BAD_REQUEST);
         }

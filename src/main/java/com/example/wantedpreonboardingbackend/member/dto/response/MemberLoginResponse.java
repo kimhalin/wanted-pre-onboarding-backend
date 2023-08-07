@@ -1,10 +1,11 @@
 package com.example.wantedpreonboardingbackend.member.dto.response;
 
 import com.example.wantedpreonboardingbackend.auth.domain.AuthToken;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class MemberLoginResponse {
     private AuthToken authToken;

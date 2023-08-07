@@ -6,9 +6,12 @@ import com.example.wantedpreonboardingbackend.member.domain.Password;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class MemberSignupRequest {
 
     @NotBlank

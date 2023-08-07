@@ -32,4 +32,9 @@ public class Board extends BaseEntity {
 
     @Column(name = "content", nullable = false, columnDefinition="TEXT")
     private String content;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

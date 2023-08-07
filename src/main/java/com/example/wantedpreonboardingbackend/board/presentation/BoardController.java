@@ -3,6 +3,7 @@ package com.example.wantedpreonboardingbackend.board.presentation;
 import com.example.wantedpreonboardingbackend.auth.domain.AuthInfo;
 import com.example.wantedpreonboardingbackend.board.application.BoardService;
 import com.example.wantedpreonboardingbackend.board.dto.request.BoardCreateRequest;
+import com.example.wantedpreonboardingbackend.board.dto.request.BoardUpdateRequest;
 import com.example.wantedpreonboardingbackend.board.dto.response.BoardResponse;
 import com.example.wantedpreonboardingbackend.global.common.PaginatedRequest;
 import com.example.wantedpreonboardingbackend.global.common.PaginatedResponse;
@@ -47,5 +48,13 @@ public class BoardController {
     public ResponseEntity<BoardResponse> getOneBoard(@PathVariable Long boardId) {
         BoardResponse result = this.boardService.getOneBoard(boardId);
         return ResponseEntity.ok(result);
+    }
+
+    @PatchMapping("/{boardId}")
+    @Operation(summary = "게시글 수정", security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<Void> updateBoard(@PathVariable Long boardId, @RequestBody BoardUpdateRequest dto,
+                                            @CurrentUser @Parameter(hidden = true) AuthInfo authInfo) {
+        this.boardService.updateBoard(boardId, dto, authInfo);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

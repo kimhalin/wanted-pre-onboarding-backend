@@ -12,6 +12,7 @@ import com.example.wantedpreonboardingbackend.member.dto.response.MemberLoginRes
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class MemberService {
 
     private final AuthService authService;
 
+    @Transactional
     public void signup(final MemberSignupRequest dto) {
         checkDuplicatedEmail(dto.getEmail());
         Member member = dto.toEntity();

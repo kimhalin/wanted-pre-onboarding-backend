@@ -57,4 +57,12 @@ public class BoardController {
         this.boardService.updateBoard(boardId, dto, authInfo);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @DeleteMapping("/{boardId}")
+    @Operation(summary = "게시글 삭제", security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<Void> deleteBoard(@PathVariable Long boardId,
+                                            @CurrentUser @Parameter(hidden = true) AuthInfo authInfo) {
+        this.boardService.deleteBoard(boardId, authInfo);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

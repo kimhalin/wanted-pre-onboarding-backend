@@ -31,9 +31,8 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
             throw new AuthFailedException(ErrorMessage.ERROR_AUTH_FAILED, HttpStatus.UNAUTHORIZED);
         }
         String token = request.getHeader("Authorization");
-        if (token == null) {
-            throw new AuthFailedException(ErrorMessage.ERROR_AUTH_FAILED, HttpStatus.UNAUTHORIZED);
-        }
+        tokenProvider.validateToken(token.substring("Bearer ".length()));
+
         return tokenProvider.getParsedClaims(token.substring("Bearer ".length()));
     }
 

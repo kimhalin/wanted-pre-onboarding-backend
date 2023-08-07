@@ -11,7 +11,7 @@ public enum ErrorMessage {
 
     // Board
     ERROR_BOARD_NOT_FOUND("게시글을 찾을 수 없습니다."),
-    ERROR_ONLY_AUTHOR_CAN_UPDATE("게시글의 작성자만 게시글을 수정할 수 있습니다."),
+    ERROR_ONLY_AUTHOR_CAN_HANDLE("게시글의 작성자만 수행할 수 있습니다."),
 
     // Auth
     ERROR_INVALID_TOKEN("유효하지 않은 토큰입니다."),

@@ -46,10 +46,8 @@ public class BoardService {
         Board board = this.boardRepository.getById(boardId);
         Long authInfoUserId = authInfo.getId();
 
-        // 작성자가 아닐 경우
-        if (!authInfoUserId.equals(board.getMember().getId())) {
-            throw new BusinessException(ErrorMessage.ERROR_ONLY_AUTHOR_CAN_UPDATE, HttpStatus.CONFLICT);
-        }
+        // 작성자인지 확인
+        checkAuthor(authInfoUserId, board.getMember().getId());
 
         board.update(dto.getTitle(), dto.getContent());
     }
@@ -64,5 +62,22 @@ public class BoardService {
         return new PaginatedResponse<>(boardResponseList, boards.getTotalPages(), boards.getTotalElements(), boards.getPageable().getPageSize(),
                 boards.getPageable().getPageNumber(), boards.getPageable().getOffset());
 
+    }
+
+    @Transactional
+    public void deleteBoard(Long boardId, AuthInfo authInfo) {
+        Board board = this.boardRepository.getById(boardId);
+        Long authInfoUserId = authInfo.getId();
+
+        // 작성자인지 확인
+        checkAuthor(authInfoUserId, board.getMember().getId());
+
+        this.boardRepository.delete(board);
+    }
+
+    private void checkAuthor(Long authInfoUserId, Long boardUserId) {
+        if (!authInfoUserId.equals(boardUserId)) {
+            throw new BusinessException(ErrorMessage.ERROR_ONLY_AUTHOR_CAN_HANDLE, HttpStatus.CONFLICT);
+        }
     }
 }

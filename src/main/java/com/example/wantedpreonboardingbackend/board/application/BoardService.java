@@ -30,6 +30,11 @@ public class BoardService {
         this.boardRepository.save(board);
     }
 
+    public BoardResponse getOneBoard(final Long boardId) {
+        Board board = this.boardRepository.getById(boardId);
+        return BoardResponse.of(board);
+    }
+
     public PaginatedResponse<BoardResponse> getAllBoards(final PaginatedRequest dto) {
         Pageable pageable = dto.toPageRequest();
         Page<Board> boards = this.boardRepository.findAll(pageable);

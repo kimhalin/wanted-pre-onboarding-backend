@@ -40,4 +40,12 @@ public class BoardController {
         PaginatedResponse<BoardResponse> result = this.boardService.getAllBoards(dto);
         return ResponseEntity.ok(result);
     }
+
+    @NoAuth
+    @GetMapping("/{boardId}")
+    @Operation(summary = "게시글 단일 조회")
+    public ResponseEntity<BoardResponse> getOneBoard(@PathVariable Long boardId) {
+        BoardResponse result = this.boardService.getOneBoard(boardId);
+        return ResponseEntity.ok(result);
+    }
 }

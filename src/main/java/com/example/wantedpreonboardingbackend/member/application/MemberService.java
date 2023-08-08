@@ -4,6 +4,7 @@ import com.example.wantedpreonboardingbackend.auth.application.AuthService;
 import com.example.wantedpreonboardingbackend.auth.domain.AuthToken;
 import com.example.wantedpreonboardingbackend.global.exception.BusinessException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
+import com.example.wantedpreonboardingbackend.global.exception.NotFoundException;
 import com.example.wantedpreonboardingbackend.member.domain.Member;
 import com.example.wantedpreonboardingbackend.member.domain.MemberRepository;
 import com.example.wantedpreonboardingbackend.member.dto.request.MemberLoginRequest;
@@ -29,7 +30,7 @@ public class MemberService {
     }
 
     public MemberLoginResponse login(final MemberLoginRequest dto) {
-        Member member = memberRepository.getByEmail(dto.getEmail());
+        Member member = this.getByEmail(dto.getEmail());
         boolean isSamePassword = member.getPassword().isSamePassword(dto.getPassword());
 
         if (!isSamePassword) {
@@ -41,13 +42,20 @@ public class MemberService {
     }
 
     private void checkDuplicatedEmail(String email) {
-        boolean isDuplicated  = this.memberRepository.existsByEmail(email);
+        boolean isDuplicated = this.memberRepository.existsByEmail(email);
         if (isDuplicated) {
             throw new BusinessException(ErrorMessage.ERROR_DUPLICATED_EMAIL, HttpStatus.CONFLICT);
         }
     }
 
-    public Member getById(Long memberId){
-        return this.memberRepository.getById(memberId);
+    public Member getById(Long memberId) {
+        return this.memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.ERROR_MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+    }
+
+    public Member getByEmail(String email) {
+        return this.memberRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.ERROR_MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+
     }
 }

@@ -10,6 +10,7 @@ import com.example.wantedpreonboardingbackend.global.common.PaginatedRequest;
 import com.example.wantedpreonboardingbackend.global.common.PaginatedResponse;
 import com.example.wantedpreonboardingbackend.global.exception.BusinessException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
+import com.example.wantedpreonboardingbackend.global.exception.NotFoundException;
 import com.example.wantedpreonboardingbackend.member.application.MemberService;
 import com.example.wantedpreonboardingbackend.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +38,13 @@ public class BoardService {
     }
 
     public BoardResponse getOneBoard(final Long boardId) {
-        Board board = this.boardRepository.getById(boardId);
+        Board board = this.getById(boardId);
         return BoardResponse.of(board);
     }
 
     @Transactional
     public void updateBoard(final Long boardId, final BoardUpdateRequest dto, final AuthInfo authInfo) {
-        Board board = this.boardRepository.getById(boardId);
+        Board board = this.getById(boardId);
         Long authInfoUserId = authInfo.getId();
 
         // 작성자인지 확인
@@ -51,7 +52,6 @@ public class BoardService {
 
         board.update(dto.getTitle(), dto.getContent());
     }
-
 
     public PaginatedResponse<BoardResponse> getAllBoards(final PaginatedRequest dto) {
         Pageable pageable = dto.toPageRequest();
@@ -66,13 +66,18 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(Long boardId, AuthInfo authInfo) {
-        Board board = this.boardRepository.getById(boardId);
+        Board board = this.getById(boardId);
         Long authInfoUserId = authInfo.getId();
 
         // 작성자인지 확인
         checkAuthor(authInfoUserId, board.getMember().getId());
 
         this.boardRepository.delete(board);
+    }
+
+    public Board getById(Long boardId) {
+        return this.boardRepository.findById(boardId)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.ERROR_BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
 
     private void checkAuthor(Long authInfoUserId, Long boardUserId) {

@@ -19,7 +19,7 @@
 <br></br>
 
 ## 3. 데이터베이스 테이블 구조
-![image](https://github.com/kimhalin/wanted-pre-onboarding-backend/assets/75435113/f3634f4c-5bad-4453-a7f1-9f7b918d124b)
+![image](https://github.com/kimhalin/wanted-pre-onboarding-backend/assets/75435113/05115d56-c2e6-4183-a470-94b879e54698)
 <br></br>
 
 ## 4. 구현한 API의 동작을 촬영한 데모 영상

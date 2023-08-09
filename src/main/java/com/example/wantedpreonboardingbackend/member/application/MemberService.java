@@ -5,6 +5,7 @@ import com.example.wantedpreonboardingbackend.auth.domain.AuthToken;
 import com.example.wantedpreonboardingbackend.global.exception.BusinessException;
 import com.example.wantedpreonboardingbackend.global.exception.ErrorMessage;
 import com.example.wantedpreonboardingbackend.global.exception.NotFoundException;
+import com.example.wantedpreonboardingbackend.global.support.Constants;
 import com.example.wantedpreonboardingbackend.member.domain.Member;
 import com.example.wantedpreonboardingbackend.member.domain.MemberRepository;
 import com.example.wantedpreonboardingbackend.member.dto.request.MemberLoginRequest;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.regex.Pattern;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -24,12 +27,15 @@ public class MemberService {
 
     @Transactional
     public void signup(final MemberSignupRequest dto) {
+        this.checkEmailAndPasswordForm(dto.getEmail(), dto.getPassword());
         checkDuplicatedEmail(dto.getEmail());
         Member member = dto.toEntity();
         this.memberRepository.save(member);
     }
 
     public MemberLoginResponse login(final MemberLoginRequest dto) {
+        this.checkEmailAndPasswordForm(dto.getEmail(), dto.getPassword());
+
         Member member = this.getByEmail(dto.getEmail());
         boolean isSamePassword = member.getPassword().isSamePassword(dto.getPassword());
 
@@ -45,6 +51,14 @@ public class MemberService {
         boolean isDuplicated = this.memberRepository.existsByEmail(email);
         if (isDuplicated) {
             throw new BusinessException(ErrorMessage.ERROR_DUPLICATED_EMAIL, HttpStatus.CONFLICT);
+        }
+    }
+
+    private void checkEmailAndPasswordForm(String email, String password) {
+        Pattern emailPattern = Pattern.compile(Constants.EMAIL_REGEX);
+        if (password.length() < Constants.MIN_PASSWORD_LENGTH
+        || !emailPattern.matcher(email).matches()) {
+            throw new BusinessException(ErrorMessage.ERROR_INVALID_EMAIL_OR_PASSWORD, HttpStatus.BAD_REQUEST);
         }
     }
 

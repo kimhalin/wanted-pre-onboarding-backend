@@ -19,6 +19,7 @@
 <br></br>
 
 ## 3. 데이터베이스 테이블 구조
+![image](https://github.com/kimhalin/wanted-pre-onboarding-backend/assets/75435113/f3634f4c-5bad-4453-a7f1-9f7b918d124b)
 <br></br>
 
 ## 4. 구현한 API의 동작을 촬영한 데모 영상
@@ -26,6 +27,7 @@
 <br></br>
 
 ## 5. 구현 방법 및 이유에 대한 간략한 설명
+- **과제 1. 사용자 회원가입 엔드포인트**
 
 - **과제 2. 사용자 로그인 엔드포인트**
 
@@ -42,5 +44,5 @@
 <br></br>
 
 ## 6. API 명세
-
+[https://documenter.getpostman.com/view/21653554/2s9Xy2QCj1]
 <br></br>

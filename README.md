@@ -51,6 +51,15 @@ docker-compose up --build
 로그인이 필요한 엔드포인트는 모두 Access Token의 유효성 검사 진행
 - HandlerMethodArgumentResolver를 이용한 어노테이션을 통해 AuthInfo 객체를 parameter로 받을 수 있도록 구현
 - `NoAuth` Interceptor를 로그인이 필요하지 않은 엔드포인트마다 설정, Interceptor를 이용해 로그인이 필요한 엔드포인트에서 token이 없을 경우 401 에러 발생
+
+GlobalExceptionHandler 클래스를 생성해, 예외 발생 시, 아래와 같은 통일된 response를 반환하도록 설정
+```text
+{
+    "error": "ERROR_BOARD_NOT_FOUND",
+    "errorMessage": "게시글을 찾을 수 없습니다."
+}
+```
+
 #### 과제 1. 사용자 회원가입 엔드포인트
 - 비밀번호의 최소 길이(8)와 이메일 '@' 포함 조건 검사 후, 유효하지 않다면 "ERROR_INVALID_EMAIL_OR_PASSWORD" 예외 발생
 - 중복가입을 방지하기 위해, 이메일 중복 가입 여부 확인 후, 중복 가입이라면 "ERROR_DUPLICATED_EMAIL" 예외 발생

@@ -41,7 +41,7 @@ docker-compose up --build
 <br></br>
 
 ## 3. 데이터베이스 테이블 구조
-![image](https://github.com/kimhalin/wanted-pre-onboarding-backend/assets/75435113/05115d56-c2e6-4183-a470-94b879e54698)
+![image](https://github.com/kimhalin/wanted-pre-onboarding-backend/assets/75435113/9e97da38-2438-4aa1-aff6-90e3101218d1)
 <br></br>
 
 ## 4. 구현한 API의 동작을 촬영한 데모 영상

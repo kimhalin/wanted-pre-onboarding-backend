@@ -48,6 +48,7 @@ docker-compose up --build
 <br></br>
 
 ## 5. 구현 방법 및 이유에 대한 간략한 설명
+테스트 코드 작성 완료, docker compose를 이용하여 애플리케이션 환경을 구성 완료
 로그인이 필요한 엔드포인트는 모두 Access Token의 유효성 검사 진행
 - HandlerMethodArgumentResolver를 이용한 어노테이션을 통해 AuthInfo 객체를 parameter로 받을 수 있도록 구현
 - `NoAuth` Interceptor를 로그인이 필요하지 않은 엔드포인트마다 설정, Interceptor를 이용해 로그인이 필요한 엔드포인트에서 token이 없을 경우 401 에러 발생

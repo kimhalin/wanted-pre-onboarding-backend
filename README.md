@@ -37,6 +37,7 @@ git clone https://github.com/kimhalin/wanted-pre-onboarding-backend.git
 docker-compose up --build
 ```
 
+`localhost:8080/api `에 접속해 swagger를 통해 API 실행 가능
 <br></br>
 
 ## 3. 데이터베이스 테이블 구조

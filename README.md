@@ -15,6 +15,20 @@
 <br></br>
 
 ## 2. 애플리케이션의 실행 방법
+1. clone
+```text
+git clone https://github.com/kimhalin/wanted-pre-onboarding-backend.git
+```
+
+2. 빌드
+```text
+./gradlew bootJar
+```
+
+3. docker-compose 실행
+```text
+docker-compose up --build
+```
 
 <br></br>
 

@@ -145,7 +145,7 @@ class BoardServiceTest {
                 .build();
         AuthInfo authInfo = new AuthInfo(member.getId());
 
-        when(boardRepository.getById(board1.getId())).thenReturn(board1);
+        when(boardRepository.findById(board1.getId())).thenReturn(Optional.ofNullable(board1));
 
         // when & then
         assertThatThrownBy(() -> boardService.deleteBoard(board1.getId(), authInfo))
@@ -170,7 +170,7 @@ class BoardServiceTest {
                 .build();
         AuthInfo authInfo = new AuthInfo(member.getId());
 
-        when(boardRepository.getById(board1.getId())).thenReturn(board1);
+        when(boardRepository.findById(board1.getId())).thenReturn(Optional.ofNullable(board1));
 
         // when & then
         assertThatThrownBy(() -> boardService.updateBoard(board1.getId(), request, authInfo))

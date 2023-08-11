@@ -7,6 +7,19 @@ services:
       MYSQL_DATABASE: wanted
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - 13306:3306
+      - "13306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
+
+  webapp:
+    build:
+      context: .
+    restart: always
+    depends_on:
+      - mysqldb
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/wanted?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root

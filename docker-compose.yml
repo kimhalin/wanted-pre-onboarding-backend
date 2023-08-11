@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: wanted
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "13306:3306"
+      - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
 
